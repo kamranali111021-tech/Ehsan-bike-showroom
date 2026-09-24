@@ -1,0 +1,1156 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 Brothers Rent a Car | Premium Car Rental</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f7fa;
+        color: #1b1b1b;
+        line-height: 1.6;
+    }
+
+    :root {
+        --primary: #d71920;
+        --dark: #111111;
+        --light: #ffffff;
+        --gray: #666;
+        --border: #e5e5e5;
+    }
+
+    /* NAVBAR */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(17,17,17,0.97);
+        box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+    }
+
+    .navbar {
+        max-width: 1200px;
+        margin: auto;
+        min-height: 75px;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        color: white;
+        font-size: 23px;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    .logo span {
+        color: var(--primary);
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+        color: #ff3038;
+    }
+
+    .menu-btn {
+        display: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+        min-height: 650px;
+        display: flex;
+        align-items: center;
+        background:
+            linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.45)),
+            url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=85")
+            center/cover;
+        color: white;
+    }
+
+    .hero-content {
+        width: min(1200px, 92%);
+        margin: auto;
+    }
+
+    .hero h1 {
+        font-size: clamp(42px, 7vw, 76px);
+        line-height: 1.05;
+        max-width: 750px;
+        margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+        color: #ff3038;
+    }
+
+    .hero p {
+        font-size: 20px;
+        max-width: 650px;
+        color: #eee;
+        margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 14px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #b80f16;
+        transform: translateY(-2px);
+    }
+
+    .btn-light {
+        background: white;
+        color: #111;
+    }
+
+    .btn-light:hover {
+        background: #eee;
+    }
+
+    /* SECTION */
+    section {
+        padding: 80px 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+    .section-title span {
+        color: var(--primary);
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .section-title h2 {
+        font-size: 40px;
+        margin: 8px 0;
+    }
+
+    .section-title p {
+        color: var(--gray);
+    }
+
+    /* SEARCH / FILTER */
+    .filters {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 35px;
+    }
+
+    .filter-btn {
+        padding: 10px 20px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: .3s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    /* CARS */
+    .cars-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .car-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 5px 25px rgba(0,0,0,.08);
+        transition: .3s;
+    }
+
+    .car-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 12px 30px rgba(0,0,0,.14);
+    }
+
+    .car-image {
+        height: 230px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .car-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: .4s;
+    }
+
+    .car-card:hover .car-image img {
+        transform: scale(1.06);
+    }
+
+    .car-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: var(--primary);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .car-info {
+        padding: 22px;
+    }
+
+    .car-info h3 {
+        font-size: 23px;
+        margin-bottom: 8px;
+    }
+
+    .car-info p {
+        color: var(--gray);
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .car-specs {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+        margin-bottom: 15px;
+        font-size: 13px;
+    }
+
+    .price {
+        color: var(--primary);
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+    .price small {
+        color: #777;
+        font-size: 12px;
+        font-weight: normal;
+    }
+
+    /* SERVICES */
+    .services {
+        background: #111;
+        color: white;
+    }
+
+    .services .section-title p {
+        color: #aaa;
+    }
+
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .service-card {
+        background: #1c1c1c;
+        padding: 30px 20px;
+        text-align: center;
+        border-radius: 14px;
+        border: 1px solid #292929;
+        transition: .3s;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+    }
+
+    .service-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+
+    .service-card h3 {
+        margin-bottom: 10px;
+    }
+
+    .service-card p {
+        color: #aaa;
+        font-size: 14px;
+    }
+
+    /* ABOUT */
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .about-image img {
+        width: 100%;
+        border-radius: 18px;
+        display: block;
+    }
+
+    .about-text h2 {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .about-text p {
+        color: var(--gray);
+        margin-bottom: 15px;
+    }
+
+    .checks {
+        list-style: none;
+        margin: 20px 0;
+    }
+
+    .checks li {
+        margin: 10px 0;
+        font-weight: bold;
+    }
+
+    .checks li::before {
+        content: "✓";
+        color: var(--primary);
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    /* BOOKING */
+    .booking {
+        background: #f0f2f5;
+    }
+
+    .booking-box {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 35px;
+        border-radius: 18px;
+        box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 13px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: var(--primary);
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .booking-btn {
+        width: 100%;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    /* CONTACT */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .contact-card {
+        background: white;
+        border-radius: 14px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,.07);
+    }
+
+    .contact-card .icon {
+        font-size: 35px;
+        margin-bottom: 12px;
+    }
+
+    .contact-card h3 {
+        margin-bottom: 7px;
+    }
+
+    .contact-card p {
+        color: var(--gray);
+    }
+
+    /* FOOTER */
+    footer {
+        background: #090909;
+        color: white;
+        padding: 35px 20px;
+        text-align: center;
+    }
+
+    footer p {
+        color: #999;
+    }
+
+    .social {
+        margin: 15px 0;
+    }
+
+    .social a {
+        color: white;
+        text-decoration: none;
+        margin: 0 8px;
+        font-size: 22px;
+    }
+
+    /* WHATSAPP FLOAT */
+    .whatsapp {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: #25D366;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 28px;
+        box-shadow: 0 5px 20px rgba(0,0,0,.25);
+        z-index: 999;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 950px) {
+        .cars-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .service-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media(max-width: 700px) {
+        .menu-btn {
+            display: block;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 75px;
+            left: 0;
+            width: 100%;
+            background: #111;
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            gap: 18px;
+        }
+
+        .nav-links.show {
+            display: flex;
+        }
+
+        .hero {
+            min-height: 580px;
+        }
+
+        .hero p {
+            font-size: 17px;
+        }
+
+        .cars-grid,
+        .service-grid,
+        .about-grid,
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full {
+            grid-column: auto;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+        }
+
+        .about-text h2 {
+            font-size: 32px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+    <nav class="navbar">
+        <a href="#home" class="logo">3 <span>Brothers</span> Rent a Car</a>
+
+        <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#cars">Our Cars</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#booking">Booking</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Drive Your Journey With <span>3 Brothers</span></h1>
+
+        <p>
+            Reliable cars, comfortable rides and professional rental service.
+            Choose from our wide range of vehicles for business, family trips,
+            weddings and daily travel.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#cars" class="btn btn-primary">Explore Cars</a>
+            <a href="#booking" class="btn btn-light">Book a Car</a>
+        </div>
+    </div>
+</section>
+
+<!-- CARS -->
+<section id="cars">
+    <div class="container">
+
+        <div class="section-title">
+            <span>Our Fleet</span>
+            <h2>Choose Your Car</h2>
+            <p>Clean, comfortable and well-maintained vehicles.</p>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterCars('all', this)">All Cars</button>
+            <button class="filter-btn" onclick="filterCars('sedan', this)">Sedan</button>
+            <button class="filter-btn" onclick="filterCars('suv', this)">SUV</button>
+            <button class="filter-btn" onclick="filterCars('van', this)">Hiace / Van</button>
+        </div>
+
+        <div class="cars-grid">
+
+            <!-- COROLLA -->
+            <div class="car-card" data-category="sedan">
+                <div class="car-image">
+                    <img src="https://images.unsplash.com/photo-1623869675781-80aa31012a5a?auto=format&fit=crop&w=900&q=80" alt="Toyota Corolla">
+                    <span class="car-badge">Popular</span>
+                </div>
+
+                <div class="car-info">
+                    <h3>Toyota Corolla</h3>
+                    <p>Comfortable sedan for family and business travel.</p>
+
+                    <div class="car-specs">
+                        <span>👥 5 Seats</span>
+                        <span>⚙ Automatic</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+
+                    <div class="price">
+                        PKR 6,000 <small>/ Day</small>
+                    </div>
+
+                    <br>
+
+                    <button class="btn btn-primary" onclick="selectCar('Toyota Corolla')">
+                        Book This Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- CIVIC -->
+            <div class="car-card" data-category="sedan">
+                <div class="car-image">
+                    <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=900&q=80" alt="Honda Civic">
+                    <span class="car-badge">Premium</span>
+                </div>
+
+                <div class="car-info">
+                    <h3>Honda Civic</h3>
+                    <p>Premium comfort and stylish driving experience.</p>
+
+                    <div class="car-specs">
+                        <span>👥 5 Seats</span>
+                        <span>⚙ Automatic</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+
+                    <div class="price">
+                        PKR 8,000 <small>/ Day</small>
+                    </div>
+
+                    <br>
+
+                    <button class="btn btn-primary" onclick="selectCar('Honda Civic')">
+                        Book This Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUV -->
+            <div class="car-card" data-category="suv">
+                <div class="car-image">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=80" alt="SUV">
+                    <span class="car-badge">SUV</span>
+                </div>
+
+                <div class="car-info">
+                    <h3>Luxury SUV</h3>
+                    <p>Spacious SUV for long journeys and family trips.</p>
+
+                    <div class="car-specs">
+                        <span>👥 7 Seats</span>
+                        <span>⚙ Automatic</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+
+                    <div class="price">
+                        PKR 12,000 <small>/ Day</small>
+                    </div>
+
+                    <br>
+
+                    <button class="btn btn-primary" onclick="selectCar('Luxury SUV')">
+                        Book This Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- HIACE -->
+            <div class="car-card" data-category="van">
+                <div class="car-image">
+                    <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=900&q=80" alt="Toyota Hiace">
+                    <span class="car-badge">Family</span>
+                </div>
+
+                <div class="car-info">
+                    <h3>Toyota Hiace</h3>
+                    <p>Perfect choice for families, groups and tours.</p>
+
+                    <div class="car-specs">
+                        <span>👥 12 Seats</span>
+                        <span>⚙ Manual</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+
+                    <div class="price">
+                        PKR 14,000 <small>/ Day</small>
+                    </div>
+
+                    <br>
+
+                    <button class="btn btn-primary" onclick="selectCar('Toyota Hiace')">
+                        Book This Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- GRANDE -->
+            <div class="car-card" data-category="sedan">
+                <div class="car-image">
+                    <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=900&q=80" alt="Toyota Grande">
+                    <span class="car-badge">Luxury</span>
+                </div>
+
+                <div class="car-info">
+                    <h3>Toyota Grande</h3>
+                    <p>Elegant and comfortable car for special occasions.</p>
+
+                    <div class="car-specs">
+                        <span>👥 5 Seats</span>
+                        <span>⚙ Automatic</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+
+                    <div class="price">
+                        PKR 9,000 <small>/ Day</small>
+                    </div>
+
+                    <br>
+
+                    <button class="btn btn-primary" onclick="selectCar('Toyota Grande')">
+                        Book This Car
+                    </button>
+                </div>
+            </div>
+
+            <!-- COASTER -->
+            <div class="car-card" data-category="van">
+                <div class="car-image">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=80" alt="Coaster">
+                    <span class="car-badge">Group Travel</span>
+                </div>
+
+                <div class="car-info">
+                    <h3>Toyota Coaster</h3>
+                    <p>Large vehicle for tours, events and group travel.</p>
+
+                    <div class="car-specs">
+                        <span>👥 25 Seats</span>
+                        <span>⚙ Manual</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+
+                    <div class="price">
+                        PKR 20,000 <small>/ Day</small>
+                    </div>
+
+                    <br>
+
+                    <button class="btn btn-primary" onclick="selectCar('Toyota Coaster')">
+                        Book This Car
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="container">
+
+        <div class="section-title">
+            <span>Our Services</span>
+            <h2>What We Offer</h2>
+            <p>Flexible rental solutions for every journey.</p>
+        </div>
+
+        <div class="service-grid">
+
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <h3>Self Drive</h3>
+                <p>Rent a vehicle and enjoy the freedom to drive yourself.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">👨‍✈️</div>
+                <h3>With Driver</h3>
+                <p>Professional driver service for comfortable travel.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">✈️</div>
+                <h3>Airport Transfer</h3>
+                <p>Reliable pickup and drop-off service for airports.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💍</div>
+                <h3>Wedding Cars</h3>
+                <p>Beautiful cars for weddings and special events.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1000&q=85" alt="3 Brothers Rent a Car">
+            </div>
+
+            <div class="about-text">
+                <span style="color:#d71920;font-weight:bold;">ABOUT 3 BROTHERS</span>
+
+                <h2>Your Trusted Travel Partner</h2>
+
+                <p>
+                    3 Brothers Rent a Car provides comfortable and reliable
+                    vehicles for individuals, families, businesses and groups.
+                </p>
+
+                <p>
+                    Whether you need a car for a day, a business trip,
+                    airport transfer, wedding or long journey, we have a
+                    vehicle to match your needs.
+                </p>
+
+                <ul class="checks">
+                    <li>Well-maintained vehicles</li>
+                    <li>Flexible rental packages</li>
+                    <li>Professional drivers available</li>
+                    <li>Fast WhatsApp booking</li>
+                    <li>Family & business rental options</li>
+                </ul>
+
+                <a href="#booking" class="btn btn-primary">Book Your Car</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+
+    <div class="container">
+
+        <div class="section-title">
+            <span>Online Booking</span>
+            <h2>Book Your Car</h2>
+            <p>Fill the form and send your booking directly to WhatsApp.</p>
+        </div>
+
+        <div class="booking-box">
+
+            <form id="bookingForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="name" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="phone" placeholder="03XX XXXXXXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Car *</label>
+                        <select id="car" required>
+                            <option value="">Choose a car</option>
+                            <option>Toyota Corolla</option>
+                            <option>Honda Civic</option>
+                            <option>Luxury SUV</option>
+                            <option>Toyota Hiace</option>
+                            <option>Toyota Grande</option>
+                            <option>Toyota Coaster</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rental Type *</label>
+                        <select id="rentalType" required>
+                            <option value="">Choose rental type</option>
+                            <option>Self Drive</option>
+                            <option>With Driver</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pickup Date *</label>
+                        <input type="date" id="pickupDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Return Date *</label>
+                        <input type="date" id="returnDate" required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Pickup Location *</label>
+                        <input type="text" id="location" placeholder="Enter pickup location" required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Additional Message</label>
+                        <textarea id="message" placeholder="Any special requirements?"></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary booking-btn">
+                    📱 Send Booking on WhatsApp
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="container">
+
+        <div class="section-title">
+            <span>Get In Touch</span>
+            <h2>Contact 3 Brothers</h2>
+            <p>Contact us for availability and rental rates.</p>
+        </div>
+
+        <div class="contact-grid">
+
+            <div class="contact-card">
+                <div class="icon">📞</div>
+                <h3>Call Us</h3>
+                <p>+92 300 1234567</p>
+            </div>
+
+            <div class="contact-card">
+                <div class="icon">💬</div>
+                <h3>WhatsApp</h3>
+                <p>+92 300 1234567</p>
+            </div>
+
+            <div class="contact-card">
+                <div class="icon">📍</div>
+                <h3>Location</h3>
+                <p>Your City, Pakistan</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <h2>3 Brothers <span style="color:#d71920;">Rent a Car</span></h2>
+
+    <div class="social">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp</a>
+    </div>
+
+    <p>© <span id="year"></span> 3 Brothers Rent a Car. All Rights Reserved.</p>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="whatsapp"
+   href="https://wa.me/923001234567"
+   target="_blank"
+   title="Chat on WhatsApp">
+    ☎
+</a>
+
+<script>
+
+    // ==========================================
+    // CHANGE YOUR WHATSAPP NUMBER HERE
+    // Example Pakistan number:
+    // 03001234567 becomes 923001234567
+    // ==========================================
+
+    const WHATSAPP_NUMBER = "923001234567";
+
+
+    // MOBILE MENU
+    function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("show");
+    }
+
+
+    // CLOSE MOBILE MENU AFTER CLICK
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            document.getElementById("navLinks").classList.remove("show");
+        });
+    });
+
+
+    // CAR FILTER
+    function filterCars(category, button) {
+
+        const cars = document.querySelectorAll(".car-card");
+        const buttons = document.querySelectorAll(".filter-btn");
+
+        buttons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        cars.forEach(car => {
+
+            if (category === "all" || car.dataset.category === category) {
+                car.style.display = "block";
+            } else {
+                car.style.display = "none";
+            }
+
+        });
+    }
+
+
+    // SELECT CAR FROM CARD
+    function selectCar(carName) {
+
+        document.getElementById("car").value = carName;
+
+        document.getElementById("booking").scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+
+    // BOOKING FORM
+    document.getElementById("bookingForm").addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const car = document.getElementById("car").value;
+        const rentalType = document.getElementById("rentalType").value;
+        const pickupDate = document.getElementById("pickupDate").value;
+        const returnDate = document.getElementById("returnDate").value;
+        const location = document.getElementById("location").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        if (!name || !phone || !car || !rentalType || !pickupDate || !returnDate || !location) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+        const whatsappMessage =
+`🚗 *3 BROTHERS RENT A CAR - BOOKING REQUEST*
+
+👤 *Customer Name:* ${name}
+📞 *Phone:* ${phone}
+
+🚘 *Car:* ${car}
+🚗 *Rental Type:* ${rentalType}
+
+📅 *Pickup Date:* ${pickupDate}
+📅 *Return Date:* ${returnDate}
+
+📍 *Pickup Location:* ${location}
+
+📝 *Additional Message:*
+${message || "No additional message"}
+
+Please confirm availability and rental charges.
+
+Thank you.
+`;
+
+        const url =
+            `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+
+        window.open(url, "_blank");
+    });
+
+
+    // CURRENT YEAR
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+
+    // PREVENT RETURN DATE BEFORE PICKUP DATE
+    document.getElementById("pickupDate").addEventListener("change", function() {
+
+        document.getElementById("returnDate").min = this.value;
+
+    });
+
+</script>
+
+</body>
+</html>
+```
